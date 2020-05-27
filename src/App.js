@@ -8,15 +8,12 @@ import './App.css';
 
 function App() {
   return (
-    // <ApolloProvider client={client}>
-    //   <ThemeProvider theme={theme}>
-    //     <GlobalStyle />
-    //     <Router />
-    //   </ThemeProvider>
-    // </ApolloProvider>
-    <div>
-      test
-    </div>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
+    </ApolloProvider>
     )
 }
 
