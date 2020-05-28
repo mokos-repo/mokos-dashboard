@@ -5,6 +5,7 @@ import Dashboard from '../screens/Dashboard'
 import { Container } from './styles'
 import Sidebar from '../components/Sidebar'
 import ListHotspot from '../screens/ListHotspot'
+import CreateHotspot from '../screens/CreateHotspot'
 
 const routes = [
     {
@@ -38,7 +39,9 @@ const Routes = () => (
                 <Switch>
                     <Route exact path = "/" component = { Dashboard } />
                     <Route exact path = "/dashboard" component = { Dashboard } />
+
                     <Route exact path = "/hotspots" component = { ListHotspot } />
+                    <Route exact path = "/hotspots/create" component = { CreateHotspot } />
                 </Switch>
             </div>
         </Router>
