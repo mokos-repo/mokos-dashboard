@@ -6,7 +6,7 @@ const Sidebar = ({ routes }) => {
     return (
         <Container>
             <NavContainer>
-                <h2 style={{color: "white", fontWeight: "600", textAlign: "center" ,fontFamily: "Lucida Console"}}>Moko's</h2>
+                <h2 style={{color: "white", fontWeight: "600", textAlign: "center", fontSize: "45px" }}>Moko's</h2>
                 <hr color="white" style={{width: "100%", marginBottom: "50px"}}/>
                 <NavLinks>
                 {routes.map(item => (
