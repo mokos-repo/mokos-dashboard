@@ -14,13 +14,13 @@ const routes = [
 
     {
         key: "1",
-        name: "Items",
-        to: "/items",
+        name: "Hotspots",
+        to: "/hotspots",
     },
     {
         key: "3",
-        name: "Employees",
-        to: "/employees",
+        name: "Users",
+        to: "/users",
     },
     {
         key: "4",
