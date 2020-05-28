@@ -1,7 +1,7 @@
 import ApolloClient from 'apollo-boost'
 
 require('dotenv').config()
-console.log(process.env.REACT_APP_SERVER_ADDRESS+'/graphql')
+console.log(process.env.REACT_APP_SERVER_ADDRESS+'graphql')
 
 const defaultOptions = {
     watchQuery: {
@@ -14,7 +14,7 @@ const defaultOptions = {
 
 const client = new ApolloClient({
     fetchOptions: defaultOptions,
-    uri: process.env.REACT_APP_SERVER_ADDRESS+'/graphql'
+    uri: process.env.REACT_APP_SERVER_ADDRESS+'graphql'
 })
 
 export default client;
