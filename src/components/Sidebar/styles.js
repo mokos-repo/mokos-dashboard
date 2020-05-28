@@ -4,13 +4,14 @@ export const Container = styled.div`
     // height: 100vh;
     grid-column: 1/2;
     grid-row: 1/3;
+    background-color: #7f5a83;
+    background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+    height: 100%;
 `
 
 export const NavContainer = styled.div`
     padding: 30px;
-    background-color: #7f5a83;
-    background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
-    height: 100%;
+    
 `
 
 export const NavLinks = styled.div`

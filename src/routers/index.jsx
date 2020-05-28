@@ -36,6 +36,7 @@ const Routes = () => (
             <div style={{height: "100vh"}}>
                 <Switch>
                     <Route exact path = "/" component = { Dashboard } />
+                    <Route exact path = "/dashboard" component = { Dashboard } />
                 </Switch>
             </div>
         </Router>
