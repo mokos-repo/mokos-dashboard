@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Dashboard from '../screens/Dashboard'
 import { Container } from './styles'
 import Sidebar from '../components/Sidebar'
+import ListHotspot from '../screens/ListHotspot'
 
 const routes = [
     {
@@ -37,6 +38,7 @@ const Routes = () => (
                 <Switch>
                     <Route exact path = "/" component = { Dashboard } />
                     <Route exact path = "/dashboard" component = { Dashboard } />
+                    <Route exact path = "/hotspots" component = { ListHotspot } />
                 </Switch>
             </div>
         </Router>
