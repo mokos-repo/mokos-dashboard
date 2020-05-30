@@ -42,6 +42,10 @@ const Routes = () => (
 
                     <Route exact path = "/hotspots" component = { ListHotspot } />
                     <Route exact path = "/hotspots/create" component = { CreateHotspot } />
+
+                    <Route exact path = "/menus" component = { ListHotspot } />
+                    <Route exact path = "/menus/create" component = { CreateHotspot } />
+
                 </Switch>
             </div>
         </Router>
