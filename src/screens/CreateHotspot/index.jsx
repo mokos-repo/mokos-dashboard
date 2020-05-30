@@ -22,6 +22,7 @@ const CreateHotspot = ({ client }) => {
     let imageId = ""
     
     const CreateHotspot = async () => {
+        console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
         setIsLoading(true)
         if(imageId === ""){
             const formdata = new FormData()
