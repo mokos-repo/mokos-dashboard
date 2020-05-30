@@ -1,18 +1,40 @@
 import React, { useState } from 'react'
 import { useInput } from "../../hooks/inputHooks";
 import { FormContainer } from './styles';
+import { withApollo } from 'react-apollo';
+import { CREATE_HOTSPOT } from './queries'
 
-const CreateHotspot = () => {
-    const { value: hotspot_handle, bind: bindHotspotHandle } = useInput("");
+const CreateHotspot = ({ client }) => {
+    const { value: unique_name, bind: bindHotspotHandle } = useInput("");
     const { value: title, bind: bindTitle } = useInput("");
     const { value: description, bind: bindDescription } = useInput("");
     const { value: is_new, setValue: setIsNew } = useInput(true);
     const { value: is_featured, setValue: setIsFeatured } = useInput(false);
     const { value: opening_hour, bind: bindOpeningHour } = useInput("");
     const { value: closing_hour, bind: bindClosingHour } = useInput("");
+    const { value: longitude, bind: bindLongitude } = useInput("");
+    const { value: latitude, bind: bindLatitude } = useInput("");
+    const { value: locationDesc, bind: bindLocationDesc } = useInput(""); 
     const [tags, setTags] = useState([{title: ""}])
-
-    // c
+    
+    const CreateHotspot = async () => {
+        await client.mutate({
+            mutation: CREATE_HOTSPOT,
+            variables: {
+                unique_name: unique_name,
+                title: title,
+                description: description,
+                is_new: is_new,
+                is_featured: is_new,
+                opening_hour: opening_hour,
+                closing_hour: closing_hour,
+                longitude: longitude,
+                latitude: latitude,
+                locationDesc: locationDesc,
+                tags: tags
+            }
+        })
+    }
 
     // handle input change
     const handleInputChange = (e, index) => {
@@ -22,19 +44,17 @@ const CreateHotspot = () => {
         setTags(list);
     };
     
-    // handle click event of the Remove button
+    // handle click event of the Remove Tag button
     const handleRemoveClick = index => {
         const list = [...tags];
         list.splice(index, 1);
         setTags(list);
     };
     
-    // handle click event of the Add button
+    // handle click event of the Add Tag button
     const handleAddClick = () => {
         setTags([...tags, { title: "" }]);
     };
-
-    console.log(hotspot_handle, title, description, opening_hour, closing_hour, is_new, is_featured, tags)
 
     return (
         <div>
@@ -65,15 +85,16 @@ const CreateHotspot = () => {
                 </div>
                 <div>
                     <p>Location</p>
-                    <input placeholder = "Longitude"/>
-                    <input placeholder = "Latitude" />
-                    <input placeholder = "Place description"/>
+                    <input placeholder = "Longitude" {...bindLongitude}/>
+                    <input placeholder = "Latitude" {...bindLatitude}/>
+                    <input placeholder = "Desc" {...bindLocationDesc}/>
+                    {/* <input placeholder = "Place description" /> */}
                 </div>
 
                 <div>
                     <p>Other</p>
                     {tags.map((x, i) => (
-                        <div>
+                        <div key={i}>
                             <input
                                 name="title"
                                 placeholder="Tag"
@@ -92,10 +113,11 @@ const CreateHotspot = () => {
                                 height: "40px", color: "white", 
                                 fontSize: "20px", width: "max-content",
                                 padding: "5px 30px", margin: "20px 0px 0px 0px",
-                                border: "0px", borderRadius: "5px"}}>CREATE</button>
+                                border: "0px", borderRadius: "5px"}}
+                        onClick={CreateHotspot}>CREATE</button>
             </FormContainer>
         </div>
     )
 }
 
-export default CreateHotspot
+export default withApollo(CreateHotspot)
