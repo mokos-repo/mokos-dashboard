@@ -1,9 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import Dashboard from '../screens/Dashboard'
 import { Container } from './styles'
 import Sidebar from '../components/Sidebar'
+
+import Dashboard from '../screens/Dashboard'
+
+import CreateMenuItem from '../screens/CreateMenuItem'
+import ListMenuItem from '../screens/ListMenuItems'
+
 import ListHotspot from '../screens/ListHotspot'
 import CreateHotspot from '../screens/CreateHotspot'
 
@@ -43,8 +48,8 @@ const Routes = () => (
                     <Route exact path = "/hotspots" component = { ListHotspot } />
                     <Route exact path = "/hotspots/create" component = { CreateHotspot } />
 
-                    <Route exact path = "/menus" component = { ListHotspot } />
-                    <Route exact path = "/menus/create" component = { CreateHotspot } />
+                    <Route exact path = "/menus" component = { ListMenuItem } />
+                    <Route exact path = "/menus/create" component = { CreateMenuItem } />
 
                 </Switch>
             </div>
