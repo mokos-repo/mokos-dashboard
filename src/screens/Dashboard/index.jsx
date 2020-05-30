@@ -7,7 +7,7 @@ const Dashboard = ({ client }) => {
     return (
         <div>
             <NavLink to="/hotspots/create">Create Hotspot</NavLink>
-            <button>Create Menu Item</button>
+            <NavLink to="/menus/create"> Create Menu Item</NavLink>
         </div>
     )
 }
