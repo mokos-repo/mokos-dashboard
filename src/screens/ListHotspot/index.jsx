@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GET_ALL_HOTSPOTS } from './queries';
 import { withApollo } from 'react-apollo';
 import { Th, Td } from './styles'
+import { Image } from 'cloudinary-react'
 
 const Hotspots = ({ client }) => {
     const [hotspots, setHotspots] = useState([]);
@@ -29,6 +30,7 @@ const Hotspots = ({ client }) => {
                         <Th>Featured</Th>
                         <Th>New</Th>
                         <Th>Open</Th>
+                        <Th>Profile</Th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +44,9 @@ const Hotspots = ({ client }) => {
                             <Td>{hotspot.is_featured ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_new ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_open ? "yes" : "no"}</Td>
+                            <Td><Image
+                                    cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
+                                    publicId={hotspot.logo} /></Td>
                         </tr>
                         )}
                     

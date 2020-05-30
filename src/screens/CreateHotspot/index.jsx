@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { useInput } from "../../hooks/inputHooks";
 import { FormContainer } from './styles';
 import { withApollo } from 'react-apollo';
@@ -14,10 +15,24 @@ const CreateHotspot = ({ client }) => {
     const { value: closing_hour, bind: bindClosingHour } = useInput("");
     const { value: longitude, bind: bindLongitude } = useInput("");
     const { value: latitude, bind: bindLatitude } = useInput("");
-    const { value: locationDesc, bind: bindLocationDesc } = useInput(""); 
+    const { value: locationDesc, bind: bindLocationDesc } = useInput("");
+    const [isLoading, setIsLoading] = useState(false)
+    const [file, setFile] = useState("")
     const [tags, setTags] = useState([{title: ""}])
+    let imageId = ""
     
     const CreateHotspot = async () => {
+        setIsLoading(true)
+        if(imageId === ""){
+            const formdata = new FormData()
+            formdata.append('file', file)
+            formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                formdata
+            )
+            imageId = response.data.public_id
+        }
         await client.mutate({
             mutation: CREATE_HOTSPOT,
             variables: {
@@ -31,9 +46,11 @@ const CreateHotspot = ({ client }) => {
                 longitude: longitude,
                 latitude: latitude,
                 locationDesc: locationDesc,
-                tags: tags
+                tags: tags,
+                logo: imageId
             }
         })
+        setIsLoading(false)
     }
 
     // handle input change
@@ -109,12 +126,14 @@ const CreateHotspot = ({ client }) => {
                     ))}
                 </div>
 
+                <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
+
                 <button style={{background: "#0d324d", 
                                 height: "40px", color: "white", 
                                 fontSize: "20px", width: "max-content",
                                 padding: "5px 30px", margin: "20px 0px 0px 0px",
                                 border: "0px", borderRadius: "5px"}}
-                        onClick={CreateHotspot}>CREATE</button>
+                        onClick={CreateHotspot}>{isLoading? "Loading...":"Create"}</button>
             </FormContainer>
         </div>
     )
