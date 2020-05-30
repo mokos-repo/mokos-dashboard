@@ -39,9 +39,9 @@ const Hotspots = ({ client }) => {
                             <Td>{hotspot.title}</Td>
                             <Td>{hotspot.description}</Td>
                             <Td>{hotspot.address.description}</Td>
-                            <Td>{hotspot.is_featured}</Td>
-                            <Td>{hotspot.is_new}</Td>
-                            <Td>{hotspot.is_open}</Td>
+                            <Td>{hotspot.is_featured ? "yes" : "no"}</Td>
+                            <Td>{hotspot.is_new ? "yes" : "no"}</Td>
+                            <Td>{hotspot.is_open ? "yes" : "no"}</Td>
                         </tr>
                         )}
                     
