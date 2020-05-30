@@ -12,6 +12,8 @@ const CreateHotspot = () => {
     const { value: closing_hour, bind: bindClosingHour } = useInput("");
     const [tags, setTags] = useState([{title: ""}])
 
+    // c
+
     // handle input change
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
@@ -86,6 +88,11 @@ const CreateHotspot = () => {
                     ))}
                 </div>
 
+                <button style={{background: "#0d324d", 
+                                height: "40px", color: "white", 
+                                fontSize: "20px", width: "max-content",
+                                padding: "5px 30px", margin: "20px 0px 0px 0px",
+                                border: "0px", borderRadius: "5px"}}>CREATE</button>
             </FormContainer>
         </div>
     )
