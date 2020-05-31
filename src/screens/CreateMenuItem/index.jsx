@@ -22,7 +22,7 @@ const CreateMenu = ({ client }) => {
     const CreateMenuItem = async () => {
         console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
         setIsLoading(true)
-        if(imageId === ""){
+        if(imageId === "" && file !== ""){
             const formdata = new FormData()
             formdata.append('file', file)
             formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
