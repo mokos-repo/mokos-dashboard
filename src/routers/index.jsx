@@ -25,6 +25,11 @@ const routes = [
         to: "/hotspots",
     },
     {
+        key: "2",
+        name: "Menus",
+        to: "/menus"
+    },
+    {
         key: "3",
         name: "Users",
         to: "/users",
