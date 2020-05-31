@@ -12,6 +12,7 @@ const CreateMenu = ({ client }) => {
     const [hotspots, setHotspots] = useState([]);
     const [hotspot, setHotspot] = useState();
     const { value: title, bind: bindTitle } = useInput("");
+    const { value: description, bind: bindDescription } = useInput("");
     const { value: price, bind: bindPrice } = useInput("0");
     const [tags, setTags] = useState([{title: ""}]);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,7 @@ const CreateMenu = ({ client }) => {
                 title,
                 price,
                 tags,
+                description,
                 image: imageId
             }
         })
@@ -83,6 +85,7 @@ const CreateMenu = ({ client }) => {
             <Select ref={React.createRef()} options={hotspots} onChange={(e)=>setHotspot(e.value)} defaultValue={hotspots[0]}/>
             <input placeholder="title" {...bindTitle}/>
             <input placeholder="price" {...bindPrice}/>
+            <input placeholder="descrption" {...bindDescription}/>
 
             {tags.map((x, i) => (
                         <div key={i}>
