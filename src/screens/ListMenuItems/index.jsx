@@ -22,14 +22,11 @@ const ListMenu = ({client}) => {
             <table>
                 <thead>
                     <tr>
-                        <Th>Handle</Th>
-                        <Th>Title</Th>
+                        <Th>Hotspot Name</Th>
+                        <Th>Menu Item</Th>
                         <Th>Description</Th>
-                        <Th>Address</Th>
-                        <Th>Featured</Th>
-                        <Th>New</Th>
-                        <Th>Open</Th>
-                        <Th>Profile</Th>
+                        <Th>Price</Th>
+                        <Th>Image</Th>
                     </tr>
                 </thead>
                 <tbody>
