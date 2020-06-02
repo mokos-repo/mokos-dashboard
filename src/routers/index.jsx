@@ -11,6 +11,7 @@ import ListMenuItem from '../screens/ListMenuItems'
 
 import ListHotspot from '../screens/ListHotspot'
 import CreateHotspot from '../screens/CreateHotspot'
+import CreatePlaylist from '../screens/CreatePlaylist'
 
 const routes = [
     {
@@ -55,6 +56,8 @@ const Routes = () => (
 
                     <Route exact path = "/menus" component = { ListMenuItem } />
                     <Route exact path = "/menus/create" component = { CreateMenuItem } />
+
+                    <Route exact path = "/playlist/create" component = { CreatePlaylist } />
 
                 </Switch>
             </div>
