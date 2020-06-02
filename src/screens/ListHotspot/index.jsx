@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo';
 import { Th, Td } from './styles'
 import { Image } from 'cloudinary-react'
 
-const Hotspots = ({ client }) => {
+const Hotspots = ({ client, history }) => {
     const [hotspots, setHotspots] = useState([]);
 
     useEffect(() =>{ 
@@ -46,6 +46,16 @@ const Hotspots = ({ client }) => {
                             <Td><Image
                                     cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
                                     publicId={hotspot.logo} /></Td>
+                            <Td>
+                                <button onClick={()=>
+                                    history.push({ pathname: '/hotspot/edit/' + hotspot.id 
+                                })}>
+                                    edit
+                                </button>
+                                <button>
+                                    delete
+                                </button>
+                            </Td>
                         </tr>
                         )}
                     
