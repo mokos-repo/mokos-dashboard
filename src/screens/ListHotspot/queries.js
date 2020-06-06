@@ -13,6 +13,7 @@ export const GET_ALL_HOTSPOTS = gql`
             is_featured
             is_new
             is_open
+            rating
             logo
         }
     }

@@ -29,6 +29,7 @@ const Hotspots = ({ client, history }) => {
                         <Th>Featured</Th>
                         <Th>New</Th>
                         <Th>Open</Th>
+                        <Th>Rating</Th>
                         <Th>Profile</Th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@ const Hotspots = ({ client, history }) => {
                             <Td>{hotspot.is_featured ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_new ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_open ? "yes" : "no"}</Td>
+                            <Td>{hotspot.rating}</Td>
                             <Td><Image
                                     cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
                                     publicId={hotspot.logo} /></Td>
@@ -52,6 +54,7 @@ const Hotspots = ({ client, history }) => {
                                 })}>
                                     edit
                                 </button>
+                                
                                 <button>
                                     delete
                                 </button>
