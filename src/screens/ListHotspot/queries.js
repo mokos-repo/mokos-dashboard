@@ -18,3 +18,9 @@ export const GET_ALL_HOTSPOTS = gql`
         }
     }
 `
+
+export const DELETE_HOTSPOT = gql`
+    mutation delete_hotspot($id: ID!){
+        deleteHotspotById(id: $id)
+    }
+`

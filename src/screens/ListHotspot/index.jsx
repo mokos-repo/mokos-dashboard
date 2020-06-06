@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { GET_ALL_HOTSPOTS } from './queries';
+import { GET_ALL_HOTSPOTS, DELETE_HOTSPOT } from './queries';
 import { withApollo } from 'react-apollo';
 import { Th, Td } from './styles'
 import { Image } from 'cloudinary-react'
 
 const Hotspots = ({ client, history }) => {
     const [hotspots, setHotspots] = useState([]);
+
+    const deleteHotspot = async (id) => await client.mutate({
+        mutation: DELETE_HOTSPOT,
+        variables: {
+            id
+        },
+        refetchQueries: [{ query: GET_ALL_HOTSPOTS }],
+        awaitRefetchQueries: true
+    })
 
     useEffect(() =>{ 
         client.query({
@@ -55,7 +64,8 @@ const Hotspots = ({ client, history }) => {
                                     edit
                                 </button>
                                 
-                                <button>
+                                <button
+                                    onClick={()=>deleteHotspot(hotspot.id)}>
                                     delete
                                 </button>
                             </Td>
