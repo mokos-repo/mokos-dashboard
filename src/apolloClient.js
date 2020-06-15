@@ -14,7 +14,10 @@ const defaultOptions = {
 
 const client = new ApolloClient({
     fetchOptions: defaultOptions,
-    uri: process.env.REACT_APP_SERVER_ADDRESS+'graphql'
+    uri: process.env.REACT_APP_SERVER_ADDRESS+'graphql',
+    headers: {
+      authorization: localStorage.getItem("token")
+    }
 })
 
 export default client;
