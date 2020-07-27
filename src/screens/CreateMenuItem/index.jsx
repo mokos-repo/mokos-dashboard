@@ -71,7 +71,7 @@ const CreateMenu = ({ client }) => {
             query: GET_ALL_HOTSPOTS,
         }).then(res =>{
             let hotspots = []
-            res.data.getAllHotspots.forEach(hotspot => {
+            res.data.getAllHotspots.results.forEach(hotspot => {
                 hotspots.push({label: hotspot.title, value: hotspot.id})
             })
             setHotspots(hotspots)
