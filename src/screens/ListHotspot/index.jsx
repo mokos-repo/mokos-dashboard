@@ -3,7 +3,7 @@ import { GET_ALL_HOTSPOTS, DELETE_HOTSPOT } from './queries';
 import { withApollo } from 'react-apollo';
 import { Th, Td } from './styles'
 import { Image } from 'cloudinary-react'
-import { auth } from '../../firebase'
+// import { auth } from '../../firebase'
 
 const Hotspots = ({ client, history }) => {
     const [hotspots, setHotspots] = useState([]);
