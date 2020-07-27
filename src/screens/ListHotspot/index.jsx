@@ -21,7 +21,7 @@ const Hotspots = ({ client, history }) => {
         client.query({
             query: GET_ALL_HOTSPOTS,
         }).then(res =>{
-            setHotspots(res.data.getAllHotspots);
+            setHotspots(res.data.getAllHotspots.results);
         }).catch(error => {
             console.log(error)
         })
