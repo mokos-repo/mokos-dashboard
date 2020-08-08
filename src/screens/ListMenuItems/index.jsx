@@ -37,9 +37,11 @@ const ListMenu = ({client}) => {
                             <Td>{menu_item.title}</Td>
                             <Td>{menu_item.description}</Td>
                             <Td>{menu_item.price}</Td>
-                            <Td><Image
+                            <Td>
+                                <Image
                                     cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
-                                    publicId={menu_item.image} /></Td>
+                                    publicId={menu_item.image} />
+                            </Td>
                         </tr>
                         )}
                     

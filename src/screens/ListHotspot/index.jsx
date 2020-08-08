@@ -54,7 +54,7 @@ const Hotspots = ({ client, history }) => {
                             <Td>{hotspot.is_featured ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_new ? "yes" : "no"}</Td>
                             <Td>{hotspot.is_open ? "yes" : "no"}</Td>
-                            <Td>{hotspot.rating}</Td>
+                            <Td>{hotspot.rating.value}</Td>
                             <Td><Image
                                     cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
                                     publicId={hotspot.logo} /></Td>
