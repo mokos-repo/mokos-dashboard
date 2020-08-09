@@ -6,6 +6,7 @@ import { withApollo } from 'react-apollo';
 import { CREATE_HOTSPOT } from './queries'
 
 const CreateHotspot = ({ client }) => {
+    const [errorMessage, setErrorMessage] = useState("")
     const { value: unique_name, bind: bindHotspotHandle } = useInput("");
     const { value: title, bind: bindTitle } = useInput("");
     const { value: description, bind: bindDescription } = useInput("");
@@ -21,37 +22,64 @@ const CreateHotspot = ({ client }) => {
     const [tags, setTags] = useState([{title: ""}])
     let imageId = ""
     
-    const CreateHotspot = async () => {
-        console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
-        setIsLoading(true)
-        console.log(imageId==="" && file!=="")
-        if(imageId === "" && file!==""){
-            const formdata = new FormData()
-            formdata.append('file', file)
-            formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
-            const response = await axios.post(
-                `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-                formdata
-            )
-            imageId = response.data.public_id
-        }
-        await client.mutate({
-            mutation: CREATE_HOTSPOT,
-            variables: {
-                unique_name: unique_name,
-                title: title,
-                description: description,
-                is_new: is_new,
-                is_featured: is_new,
-                opening_hour: opening_hour,
-                closing_hour: closing_hour,
-                longitude: longitude,
-                latitude: latitude,
-                locationDesc: locationDesc,
-                tags: tags,
-                logo: imageId
+    const validate = () => {
+        // Validate tags
+        let tagDict = {}
+        tags.forEach(tag => {
+            console.log(tag.title==="")
+            if(tag.title === "") {
+                setErrorMessage("Empty tag")
+                return false
+            } else if (tagDict[tag.title] === 0) {
+                setErrorMessage("Duplicated tag")
+                return false
             }
-        })
+            tagDict[tag.title] = 0
+        });
+        console.log("here")
+
+        if (opening_hour === "" || closing_hour === ""){
+            setErrorMessage("Opening and Closing hour not set properly")
+            return false
+        }
+
+        return true
+    }
+
+    const CreateHotspot = async () => {
+        setErrorMessage("")
+        setIsLoading(true)
+        if(validate()){
+            console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+            console.log(imageId==="" && file!=="")
+            if(imageId === "" && file!==""){
+                const formdata = new FormData()
+                formdata.append('file', file)
+                formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    formdata
+                )
+                imageId = response.data.public_id
+            }
+            await client.mutate({
+                mutation: CREATE_HOTSPOT,
+                variables: {
+                    unique_name: unique_name,
+                    title: title,
+                    description: description,
+                    is_new: is_new,
+                    is_featured: is_new,
+                    opening_hour: opening_hour,
+                    closing_hour: closing_hour,
+                    longitude: longitude,
+                    latitude: latitude,
+                    locationDesc: locationDesc,
+                    tags: tags,
+                    logo: imageId
+                }
+            })
+        }
         setIsLoading(false)
     }
 
@@ -129,7 +157,8 @@ const CreateHotspot = ({ client }) => {
                 </div>
 
                 <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
-
+                
+                <p>{errorMessage}</p>
                 <button style={{background: "#0d324d", 
                                 height: "40px", color: "white", 
                                 fontSize: "20px", width: "max-content",
