@@ -26,7 +26,6 @@ const CreateHotspot = ({ client }) => {
         // Validate tags
         let tagDict = {}
         tags.forEach(tag => {
-            console.log(tag.title==="")
             if(tag.title === "") {
                 setErrorMessage("Empty tag")
                 return false
@@ -36,8 +35,6 @@ const CreateHotspot = ({ client }) => {
             }
             tagDict[tag.title] = 0
         });
-        console.log("here")
-
         if (opening_hour === "" || closing_hour === ""){
             setErrorMessage("Opening and Closing hour not set properly")
             return false
@@ -51,7 +48,6 @@ const CreateHotspot = ({ client }) => {
         setIsLoading(true)
         if(validate()){
             console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
-            console.log(imageId==="" && file!=="")
             if(imageId === "" && file!==""){
                 const formdata = new FormData()
                 formdata.append('file', file)

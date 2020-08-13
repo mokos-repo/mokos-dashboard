@@ -9,8 +9,7 @@ const CreatePlaylist = ({ client }) => {
     const { value: title, bind: bindTitle } = useInput("");
 
     const CreatePlaylist = async () => {
-        setisLoading(true)
-        console.log(title);
+        setisLoading(true);
         
         await client.mutate({
             mutation: CREATE_PLAYLIST,
