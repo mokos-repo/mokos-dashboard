@@ -129,6 +129,7 @@ const UpdateHotspot = ({ client, match }) => {
     }
 
     useEffect(() => {
+        setIsLoading(true)
         client.query({
             query: GET_HOTSPOT,
             variables:{
@@ -137,6 +138,10 @@ const UpdateHotspot = ({ client, match }) => {
         }).then(res => {
             const hotspot = res.data.getHotspot
             setHotspot(hotspot)
+            setIsLoading(false)
+        }).catch(error=>{
+            console.log(error)
+            setIsLoading(false)
         })
     }, [client, match])
 
