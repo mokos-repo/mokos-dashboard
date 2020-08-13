@@ -6,7 +6,6 @@ import { withApollo } from 'react-apollo';
 import { UPDATE_HOTSPOT, GET_HOTSPOT } from './queries'
 
 const UpdateHotspot = ({ client, match }) => {
-    console.log(match.params.pk)
     const [errorMessage, setErrorMessage] = useState("")
     const { value: unique_name, bind: bindHotspotHandle, setValue: setUniqueName } = useInput("");
     const { value: title, bind: bindTitle, setValue: setTitle } = useInput("");
@@ -72,7 +71,7 @@ const UpdateHotspot = ({ client, match }) => {
                     title: title,
                     description: description,
                     is_new: is_new,
-                    is_featured: is_new,
+                    is_featured: is_featured,
                     opening_hourID: opening_hour_id,
                     opening_hour: opening_hour,
                     closing_hour: closing_hour,
@@ -116,6 +115,8 @@ const UpdateHotspot = ({ client, match }) => {
         setLocationId(hotspot.address.id)
         setOpeningHourId(hotspot.opening_hour.id)
         setTags(hotspot.tags)
+        setIsFeatured(hotspot.is_featured)
+        setIsNew(hotspot.is_new)
     }
 
     // handle click event of the Add Tag button
@@ -139,11 +140,11 @@ const UpdateHotspot = ({ client, match }) => {
             const hotspot = res.data.getHotspot
             setHotspot(hotspot)
         })
-    }, [])
+    }, [client, match])
 
     return (
         <div>
-            <h2>Create Hotspot</h2>
+            <h2>Edit Hotspot</h2>
             <FormContainer>
                 <input placeholder = "Hotspot Handle" {...bindHotspotHandle} />
                 <input placeholder = "Title" {...bindTitle} />
@@ -202,7 +203,7 @@ const UpdateHotspot = ({ client, match }) => {
                                 fontSize: "20px", width: "max-content",
                                 padding: "5px 30px", margin: "20px 0px 0px 0px",
                                 border: "0px", borderRadius: "5px"}}
-                        onClick={UpdateHotspot}>{isLoading? "Loading...":"Update"}</button>
+                        onClick={isLoading?()=>{}:UpdateHotspot}>{isLoading? "Loading...":"Update"}</button>
             </FormContainer>
         </div>
     )
