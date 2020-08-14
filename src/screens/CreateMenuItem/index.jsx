@@ -15,6 +15,7 @@ const CreateMenu = ({ client }) => {
     const { value: description, bind: bindDescription } = useInput("");
     const { value: price, bind: bindPrice } = useInput("0");
     const [tags, setTags] = useState([{title: ""}]);
+    const [ingredients, setIngredients] = useState([{title: ""}])
     const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState("");
     let imageId = ""
@@ -39,6 +40,7 @@ const CreateMenu = ({ client }) => {
                 title,
                 price,
                 tags,
+                ingredients,
                 description,
                 image: imageId
             }
@@ -53,6 +55,13 @@ const CreateMenu = ({ client }) => {
         list[index][name] = value;
         setTags(list);
     };
+
+    const handleIngInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...ingredients]
+        list[index][name] = value
+        setIngredients(list)
+    }
     
     // handle click event of the Remove Tag button
     const handleRemoveClick = index => {
@@ -64,6 +73,16 @@ const CreateMenu = ({ client }) => {
     // handle click event of the Add Tag button
     const handleAddClick = () => {
         setTags([...tags, { title: "" }]);
+    };
+
+    const handleIngredientAddClick = () => {
+        setIngredients([...ingredients, { title: "" }])
+    }
+
+    const handleIngredientRemoveClick = index => {
+        const list = [...ingredients];
+        list.splice(index, 1);
+        setIngredients(list);
     };
 
     useEffect(() =>{ 
@@ -87,6 +106,7 @@ const CreateMenu = ({ client }) => {
             <input placeholder="price" {...bindPrice}/>
             <input placeholder="descrption" {...bindDescription}/>
 
+            <h3>Tags Section</h3>
             {tags.map((x, i) => (
                         <div key={i}>
                             <input
@@ -102,6 +122,22 @@ const CreateMenu = ({ client }) => {
                         </div>
                     ))}
 
+            
+            <h3>Ingredients Section</h3>
+            {ingredients.map((x, i) => (
+                        <div key={i}>
+                            <input
+                                name="title"
+                                placeholder="Ingredient"
+                                value={x.title}
+                                onChange={e => handleIngInputChange(e, i)} />
+
+                            {ingredients.length !== 1 && <button
+                                className="mr10"
+                                onClick={() => handleIngredientRemoveClick(i)}>Remove</button>}
+                            {ingredients.length - 1 === i && <button onClick={handleIngredientAddClick}>Add</button>}
+                        </div>
+                    ))}
             <input placeholder="image" type="file" onChange={(e) => setFile(e.target.files[0])}/>
 
             <button style={{background: "#0d324d", 
