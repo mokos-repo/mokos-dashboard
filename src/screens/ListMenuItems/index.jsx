@@ -13,6 +13,7 @@ const ListMenu = ({client}) => {
         client.query({
             query: GET_ALL_MENU_ITEMS,
         }).then(res => {
+            console.log(res.data.getAllMenuItems)
             setMenuItems(res.data.getAllMenuItems)
         })
     })
