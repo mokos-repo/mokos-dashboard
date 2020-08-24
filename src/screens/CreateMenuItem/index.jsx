@@ -17,35 +17,52 @@ const CreateMenu = ({ client }) => {
     const [tags, setTags] = useState([{title: ""}]);
     const [ingredients, setIngredients] = useState([{title: ""}])
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
     const [file, setFile] = useState("");
     let imageId = ""
 
-    const CreateMenuItem = async () => {
-        console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
-        setIsLoading(true)
-        if(imageId === "" && file !== ""){
-            const formdata = new FormData()
-            formdata.append('file', file)
-            formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
-            const response = await axios.post(
-                `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-                formdata
-            )
-            imageId = response.data.public_id
+    const validate = () => {
+        console.log(hotspot)
+        if (hotspot === null || hotspot === undefined) {
+            setErrorMessage("* Hotspot can't be empty")
         }
-        await client.mutate({
-            mutation: CREATE_MENU_ITEM,
-            variables: {
-                hotspot,
-                title,
-                price,
-                tags,
-                ingredients,
-                description,
-                image: imageId
+        else if (title === null || title === "") {
+            setErrorMessage("* Title Can't be empty")
+        }
+        else if (price === "0") {
+            setErrorMessage("* Price can't be 0")
+        }
+        return true
+    }
+
+    const CreateMenuItem = async () => {
+        if(validate()){
+            console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+            setIsLoading(true)
+            if(imageId === "" && file !== ""){
+                const formdata = new FormData()
+                formdata.append('file', file)
+                formdata.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    formdata
+                )
+                imageId = response.data.public_id
             }
-        })
-        setIsLoading(false)
+            await client.mutate({
+                mutation: CREATE_MENU_ITEM,
+                variables: {
+                    hotspot,
+                    title,
+                    price,
+                    tags,
+                    ingredients,
+                    description,
+                    image: imageId
+                }
+            })
+            setIsLoading(false)
+        }
     }
 
     // handle input change
@@ -139,7 +156,7 @@ const CreateMenu = ({ client }) => {
                         </div>
                     ))}
             <input placeholder="image" type="file" onChange={(e) => setFile(e.target.files[0])}/>
-
+            <p style={{color: "red"}}>{errorMessage}</p>
             <button style={{background: "#0d324d", 
                                 height: "40px", color: "white", 
                                 fontSize: "20px", width: "max-content",
