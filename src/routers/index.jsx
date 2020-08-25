@@ -15,6 +15,7 @@ import CreatePlaylist from '../screens/CreatePlaylist'
 import EditHotspot from '../screens/EditHotspot'
 
 import TestScreen from '../screens/TestScreen'
+import SmsTestScreen from '../screens/SmsTestScreen'
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         key: "4",
         name: "Testing",
         to: "/test",
+    },
+    {
+        key: "5",
+        name: "SMS",
+        to: "/sms"
     }
 ]
 
@@ -64,6 +70,7 @@ const Routes = () => (
                     <Route exact path = "/playlist/create" component = { CreatePlaylist } />
 
                     <Route exact path = "/test" component = { TestScreen } />
+                    <Route exact path = "/sms" component = { SmsTestScreen } />
                 </Switch>
             </div>
         </Router>
