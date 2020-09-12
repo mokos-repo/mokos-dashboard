@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { GET_ALL_HOTSPOTS, DELETE_HOTSPOT } from './queries';
 import { withApollo } from 'react-apollo';
-import { Th, Td } from './styles'
+import { Th, Td, Container } from './styles'
 import { Image } from 'cloudinary-react'
 // import { auth } from '../../firebase'
 
 const Hotspots = ({ client, history }) => {
     const [hotspots, setHotspots] = useState([]);
+    const [filtered, setFiltered] = useState([]);
+
+    const filter = event => {
+        setFiltered(hotspots.filter(item => item.title.includes(event.target.value)))
+    }
 
     const deleteHotspot = async (id) => await client.mutate({
         mutation: DELETE_HOTSPOT,
@@ -22,13 +27,15 @@ const Hotspots = ({ client, history }) => {
             query: GET_ALL_HOTSPOTS,
         }).then(res =>{
             setHotspots(res.data.getAllHotspots.results);
+            setFiltered(res.data.getAllHotspots.results);
         }).catch(error => {
             console.log(error)
         })
     }, [client]);
 
     return (
-        <div>
+        <Container>
+            <input placeholder="search" onChange={filter} />
             <table>
                 <thead>
                     <tr>
@@ -45,7 +52,7 @@ const Hotspots = ({ client, history }) => {
                 </thead>
                 <tbody>
                     
-                    {hotspots.map(hotspot => 
+                    {filtered.map(hotspot => 
                         <tr key={hotspot.id}>
                             <Td>{hotspot.unique_name}</Td>
                             <Td>{hotspot.title}</Td>
@@ -75,7 +82,7 @@ const Hotspots = ({ client, history }) => {
                     
                 </tbody>
             </table>
-        </div>
+        </Container>
     )
 }
 
