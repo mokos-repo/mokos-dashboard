@@ -4,7 +4,7 @@ export const EDIT_MENU_ITEM = gql`
     mutation edit_menu_item(
         $hotspot: ID, $title: String, $description: String, 
         $image: String, $price: String, $tags: [MenuItemTagUpdateInput],
-        $ingredients: [IngredientUpdateInput], $id: ID){
+        $ingredients: [IngredientUpdateInput], $id: ID!){
         editMenuItem(data:{
             id: $id,
             hotspot: $hotspot,
