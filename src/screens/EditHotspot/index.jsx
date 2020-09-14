@@ -51,6 +51,22 @@ const UpdateHotspot = ({ client, match }) => {
         setIsLoading(true)
         if(validate()){
             console.log(process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+            const variables = {
+                id: match.params.pk,
+                unique_name: unique_name,
+                title: title,
+                description: description,
+                is_new: is_new,
+                is_featured: is_featured,
+                opening_hourID: opening_hour_id,
+                opening_hour: opening_hour,
+                closing_hour: closing_hour,
+                longitude: longitude,
+                latitude: latitude,
+                locationDesc: locationDesc,
+                locationID: locationId,
+                tags: tags
+            }
             if(imageId === "" && file!==""){
                 const formdata = new FormData()
                 formdata.append('file', file)
@@ -60,26 +76,12 @@ const UpdateHotspot = ({ client, match }) => {
                     formdata
                 )
                 imageId = response.data.public_id
+                variables.logo = imageId
             }
+
             await client.mutate({
                 mutation: UPDATE_HOTSPOT,
-                variables: {
-                    id: match.params.pk,
-                    unique_name: unique_name,
-                    title: title,
-                    description: description,
-                    is_new: is_new,
-                    is_featured: is_featured,
-                    opening_hourID: opening_hour_id,
-                    opening_hour: opening_hour,
-                    closing_hour: closing_hour,
-                    longitude: longitude,
-                    latitude: latitude,
-                    locationDesc: locationDesc,
-                    locationID: locationId,
-                    tags: tags,
-                    logo: imageId
-                }
+                variables
             })
         }
         setIsLoading(false)
