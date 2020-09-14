@@ -75,7 +75,7 @@ const EditMenuItem = ({ client, match }) => {
                 imageId = response.data.public_id
                 variables.image = imageId
             }
-            
+
             await client.mutate({
                 mutation: EDIT_MENU_ITEM,
                 variables
@@ -155,8 +155,12 @@ const EditMenuItem = ({ client, match }) => {
             setDescription(res.data.getMenuItem.description)
             setPrice(res.data.getMenuItem.price)
             filterTags(res.data.getMenuItem)
-            setTags(res.data.getMenuItem.tags)
-            setIngredients(res.data.getMenuItem.ingredients)
+            if(res.data.getMenuItem.tags.length > 0) {
+                setTags(res.data.getMenuItem.tags)  
+            }
+            if(res.data.getMenuItem.ingredients.length > 0) {
+                setIngredients(res.data.getMenuItem.ingredients)
+            }
             setId(res.data.getMenuItem.id)
 
             console.log(res.data.getMenuItem)

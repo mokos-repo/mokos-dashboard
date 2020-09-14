@@ -114,7 +114,9 @@ const UpdateHotspot = ({ client, match }) => {
         setLocationDesc(hotspot.address.description)
         setLocationId(hotspot.address.id)
         setOpeningHourId(hotspot.opening_hour.id)
-        setTags(hotspot.tags)
+        if (hotspot.tags) {
+            setTags(hotspot.tags)
+        }
         setIsFeatured(hotspot.is_featured)
         setIsNew(hotspot.is_new)
     }
