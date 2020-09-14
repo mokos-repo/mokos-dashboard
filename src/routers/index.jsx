@@ -8,6 +8,7 @@ import Dashboard from '../screens/Dashboard'
 
 import CreateMenuItem from '../screens/CreateMenuItem'
 import ListMenuItem from '../screens/ListMenuItems'
+import EditMenuItem from '../screens/EditMenuItem'
 
 import ListHotspot from '../screens/ListHotspot'
 import CreateHotspot from '../screens/CreateHotspot'
@@ -66,6 +67,7 @@ const Routes = () => (
 
                     <Route exact path = "/menus" component = { ListMenuItem } />
                     <Route exact path = "/menus/create" component = { CreateMenuItem } />
+                    <Route exact path = "/menus/edit/:pk" component = { EditMenuItem } />
 
                     <Route exact path = "/playlist/create" component = { CreatePlaylist } />
 

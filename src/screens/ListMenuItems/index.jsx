@@ -5,7 +5,7 @@ import { Image } from 'cloudinary-react'
 import { GET_ALL_MENU_ITEMS } from './queries'
 import { Th, Td, Container } from '../ListHotspot/styles'
 
-const ListMenu = ({client}) => {
+const ListMenu = ({history, client}) => {
     const [menuItems, setMenuItems] = useState([]);
     const [filtered, setFiltered] = useState([]);
 
@@ -47,6 +47,17 @@ const ListMenu = ({client}) => {
                                 <Image
                                     cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} 
                                     publicId={menu_item.image} />
+                            </Td>
+                            <Td>
+                                <button onClick={()=>
+                                    history.push({ pathname: '/menus/edit/' + menu_item.id 
+                                })}>
+                                    edit
+                                </button>
+                                
+                                <button>
+                                    delete
+                                </button>
                             </Td>
                         </tr>
                         )}
